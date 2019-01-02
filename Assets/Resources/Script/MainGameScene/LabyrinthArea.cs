@@ -13,10 +13,6 @@ public class LabyrinthArea {
     public readonly LabyrinthSettings labySettings;
     public readonly Room room;
 
-    public LabyrinthArea()
-    {
-
-    }
     public LabyrinthArea(int x,int y,int width,int heght,LabyrinthSettings settings)
     {
         this.x = x;

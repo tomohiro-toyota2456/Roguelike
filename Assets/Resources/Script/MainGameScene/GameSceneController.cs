@@ -16,8 +16,6 @@ public class GameSceneController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Generate();
-
-
     }
 	
     void Generate()
@@ -43,9 +41,5 @@ public class GameSceneController : MonoBehaviour {
         }
         Wall.gameObject.SetActive(false);
         Mat.gameObject.SetActive(false);
-    }
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    }ß
 }

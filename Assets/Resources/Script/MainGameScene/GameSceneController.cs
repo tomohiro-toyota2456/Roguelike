@@ -41,5 +41,5 @@ public class GameSceneController : MonoBehaviour {
         }
         Wall.gameObject.SetActive(false);
         Mat.gameObject.SetActive(false);
-    }ß
+    }
 }

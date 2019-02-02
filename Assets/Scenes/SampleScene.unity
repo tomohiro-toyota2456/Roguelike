@@ -250,11 +250,39 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 534669902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 50, y: 50, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &792296529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 792296530}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &792296530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 792296529}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &894056670
 GameObject:
@@ -292,9 +320,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 982221666}
-  - component: {fileID: 982221668}
   - component: {fileID: 982221667}
-  - component: {fileID: 982221669}
+  - component: {fileID: 982221668}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -323,12 +350,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 982221665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e71fcdc2d2f45b2b9a74c51df4dd77, type: 3}
+  m_Script: {fileID: 11500000, guid: 3314901368cc14ef18100d6291323fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labyrinthSettings: {fileID: 982221669}
-  width: 30
-  height: 30
+  wall: {fileID: 1991176373}
+  road: {fileID: 2113989845}
+  TileContainer: {fileID: 894056671}
+  generator: {fileID: 982221668}
 --- !u!114 &982221668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,28 +365,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 982221665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e4b1e01f9cb4065bbf6825d55d1cfd, type: 3}
+  m_Script: {fileID: 11500000, guid: 41ded1f1597a545e0a0662861255945d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labyrinth: {fileID: 982221667}
-  tileContainer: {fileID: 894056671}
-  Wall: {fileID: 1991176373}
-  Mat: {fileID: 2113989845}
---- !u!114 &982221669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 982221665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50825a1598c464e67995f46b54819c57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minWidth: 4
-  minHeight: 4
-  roomRate: 5
-  maxWallThickness: 5
 --- !u!1 &1991176373
 GameObject:
   m_ObjectHideFlags: 0

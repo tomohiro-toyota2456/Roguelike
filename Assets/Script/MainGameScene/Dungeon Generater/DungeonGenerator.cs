@@ -11,13 +11,14 @@ public class DungeonGenerator : MonoBehaviour
     public enum MAP_CHIP
     {
         WALL = 0,
-        ROOM = 1,
-        ROAD = 2,
+        WALLDOWN = 1,
+        ROOM = 2,
+        ROAD = 3,
         NO_DESTORY_WALL = 9
     }
 
     //部屋の最低サイズ
-    public const int MIN_ROOM_SIZE = 3;
+    public const int MIN_ROOM_SIZE = 5;
     //部屋の最大サイズ
     public const int MAX_ROOM_SIZE = 10;
 
@@ -186,11 +187,19 @@ public class DungeonGenerator : MonoBehaviour
             int rx = Random.Range(0, rw) + POS_MERGIN;
             int ry = Random.Range(0, rh) + POS_MERGIN;
 
-            int left = div.outer.areaLeft + rx;
-            int right = left + sw;
-            int top = div.outer.areaTop + ry;
-            int bottom = top + sh;
-
+            int left = div.outer.areaLeft + rx ;
+            int right = left + sw ;
+            int top = div.outer.areaTop + ry ;
+            int bottom = top + sh ;
+            /*区画ぴったりになると通路分が確保できない為−１*/
+            if(right >= div.outer.areaRight)
+            {
+                right -= 1;
+            }
+            if(bottom > div.outer.areaBottom)
+            {
+                bottom -= 1;
+            }
             // 部屋サイズを設定
             div.room.Set(left, right, top, bottom);
 
@@ -202,6 +211,12 @@ public class DungeonGenerator : MonoBehaviour
                     map[topS, leftS] = (int)MAP_CHIP.ROOM;
                 }
             }//部屋生成終了
+
+            for(int leftS = left; leftS < right;leftS++)
+            {
+                map[top-1, leftS] = (int)MAP_CHIP.WALLDOWN;
+                map[bottom, leftS] = (int)MAP_CHIP.WALLDOWN;
+            }
 
         }
     }// CreateRoom
@@ -215,8 +230,8 @@ public class DungeonGenerator : MonoBehaviour
             //２つの部屋を繋ぐ
             CreateRoad(a, b, false, map);
             //孫と通路を繋げる
-            //if(Random.Range(0,2) == 0)
-           // {
+            if(Random.Range(0,2) == 0)
+            {
                 for (int j = i + 2; j < areaList.Count; j++)
                 {
                     LayerArea c = areaList[j];
@@ -225,7 +240,7 @@ public class DungeonGenerator : MonoBehaviour
                         break;
                     }
                 }
-           // }//*/
+            }
         }// for
         /*最初の部屋と最後の部屋をランダムで繋げる*/
         if (Random.Range(0, 2) == 0)
@@ -305,8 +320,8 @@ public class DungeonGenerator : MonoBehaviour
         if (roomA.outer.areaLeft == roomB.outer.areaRight
          || roomA.outer.areaRight == roomB.outer.areaLeft)
         {
-            int y1 = Random.Range(roomA.room.areaTop, roomA.room.areaBottom);
-            int y2 = Random.Range(roomB.room.areaTop, roomB.room.areaBottom);
+            int y1 = Random.Range(roomA.room.areaTop+1, roomA.room.areaBottom);
+            int y2 = Random.Range(roomB.room.areaTop+1, roomB.room.areaBottom);
             int x = 0;
             if (isGrandChild)
             {
@@ -366,62 +381,14 @@ public class DungeonGenerator : MonoBehaviour
         return false;
     }// CreateRoad
 
-    //最初の部屋と最後の部屋を区画を無視して繋げる
-    void CreateRoad(LayerArea roomA, LayerArea roomB, int[,] map)
-    {
-        int startX = 0;
-        int endX = 0;
-        int startY = 0;
-        int endY = 0;
-
-        if (roomA.room.areaLeft > roomB.room.areaLeft)
-        {
-            startX = roomB.room.areaRight;
-            endX = roomA.room.areaLeft;
-            if (roomA.room.areaTop > roomB.room.areaTop)
-            {
-                startY = roomB.room.areaTop;
-                endY = roomA.room.areaBottom;
-            }
-            else
-            {
-                startY = roomA.room.areaTop;
-                endY = roomB.room.areaBottom;
-            }
-        }
-        else
-        {
-            startX = roomA.room.areaRight;
-            endX = roomB.room.areaLeft;
-            if (roomA.room.areaTop > roomB.room.areaTop)
-            {
-                startY = roomB.room.areaTop;
-                endY = roomA.room.areaBottom;
-            }
-            else
-            {
-                startY = roomA.room.areaTop;
-                endY = roomB.room.areaBottom;
-            }
-        }
-
-        for(int ry = startY;ry<endY+1;ry++)
-        {
-            for(int rx = startX;rx < endX+1;rx++)
-            {
-                map[ry, rx] = (int)MAP_CHIP.ROAD;
-            }
-        }
-
-    }//CreateRoad
 
     void MapWriteCheck(int y,int x,int[,]map)
     {
         //通路が部屋を貫通していなければ
-        if(map[y, x]!= (int)MAP_CHIP.ROOM)
-        {
+        //if(map[y, x]!= (int)MAP_CHIP.ROOM)
+        //{
             map[y, x] = (int)MAP_CHIP.ROAD;
-        }
+       // }
 
     }
 }

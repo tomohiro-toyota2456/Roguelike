@@ -38,7 +38,13 @@ public class MainGameController : MonoBehaviour {
                         chip = Instantiate(wall);
                         chip.transform.SetParent(TileContainer);
                         width = chip.transform.GetComponent<SpriteRenderer>().bounds.size.x;
-                        chip.transform.localPosition = new Vector2(x + width * x, y);
+                        chip.transform.localPosition = new Vector2(width * x, y);
+                        break;
+                    case DungeonGenerator.MAP_CHIP.WALLDOWN:
+                        chip = Instantiate(wall_Down);
+                        chip.transform.SetParent(TileContainer);
+                        width = chip.transform.GetComponent<SpriteRenderer>().bounds.size.x;
+                        chip.transform.localPosition = new Vector2(width * x, y);
                         break;
                     case DungeonGenerator.MAP_CHIP.ROOM:
                         chip = Instantiate(road);
@@ -63,7 +69,7 @@ public class MainGameController : MonoBehaviour {
         }//for
         wall.gameObject.SetActive(false);
         road.gameObject.SetActive(false);
-
+        wall_Down.SetActive(false);
     }
 	
 }
